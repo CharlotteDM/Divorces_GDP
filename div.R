@@ -120,3 +120,18 @@ divorces$Country.Code[divorces$Country.Code == "TR"] <- "TUR"
 divorces$Country.Code[divorces$Country.Code == "UA"] <- "UKR"
 divorces$Country.Code[divorces$Country.Code == "UK"] <- "GBR"
 
+#The Highest GDP in the Europe in 2021 $ in 2020
+GDP2021 <- GDP %>%
+  filter(TIME_PERIOD == 2021)
+
+HighGDP2021<- GDP2021 %>%
+  filter(OBS_VALUE == max(OBS_VALUE, na.rm = T)) %>%
+  dplyr::select(Country.Code,OBS_VALUE) 
+
+GDP2020 <- GDP %>%
+  filter(TIME_PERIOD == 2020)
+
+HighGDP2020<- GDP2020 %>%
+  filter(OBS_VALUE == max(OBS_VALUE, na.rm = T)) %>%
+  dplyr::select(Country.Code,OBS_VALUE) 
+
