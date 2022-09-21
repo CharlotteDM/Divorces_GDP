@@ -162,3 +162,5 @@ LowDiv2020<- divorces2020 %>%
   dplyr::select(Country.Code,divorces_crudo) 
 
 #correlation between GDP and divorce rate
+comb_data <- left_join(GDP2020, divorces2020, by = "Country.Code")
+cor(comb_data$gdp_percapita, comb_data$divorces_crudo, use = "complete.obs")
