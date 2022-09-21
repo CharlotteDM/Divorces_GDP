@@ -30,9 +30,11 @@ continents <- read.csv("data/continents.csv",
                        stringsAsFactors = F)
 colnames(continents)[5] <- "Country.Code"
 
-#changes names of columns "geo" to "Country.Code"
+#changes names of columns 
 colnames(GDP)[6] <- "Country.Code"
+colnames(GDP)[8] <- "gdp_percapita"
 colnames(divorces)[5] <- "Country.Code"
+colnames(divorces)[7] <- "divorces_crudo"
 
 #changes country code from 2 letters to three letters
 GDP$Country.Code[GDP$Country.Code == "AT"] <- "AUT"
@@ -125,25 +127,25 @@ GDP2021 <- GDP %>%
   filter(TIME_PERIOD == 2021)
 
 HighGDP2021<- GDP2021 %>%
-  filter(OBS_VALUE == max(OBS_VALUE, na.rm = T)) %>%
-  dplyr::select(Country.Code,OBS_VALUE) 
+  filter(gdp_percapita == max(gdp_percapita, na.rm = T)) %>%
+  dplyr::select(Country.Code, gdp_percapita) 
 
 GDP2020 <- GDP %>%
   filter(TIME_PERIOD == 2020)
 
 HighGDP2020<- GDP2020 %>%
-  filter(OBS_VALUE == max(OBS_VALUE, na.rm = T)) %>%
-  dplyr::select(Country.Code,OBS_VALUE) 
+  filter(gdp_percapita == max(gdp_percapita, na.rm = T)) %>%
+  dplyr::select(Country.Code, gdp_percapita) 
 
 #The Lowest GDP in the Europe in 2021 $ in 2020
 
 LowGDP2021<- GDP2021 %>%
-  filter(OBS_VALUE == min(OBS_VALUE, na.rm = T)) %>%
-  dplyr::select(Country.Code,OBS_VALUE) 
+  filter(gdp_percapita == min(gdp_percapita, na.rm = T)) %>%
+  dplyr::select(Country.Code,gdp_percapita) 
 
 LowGDP2020<- GDP2020 %>%
-  filter(OBS_VALUE == min(OBS_VALUE, na.rm = T)) %>%
-  dplyr::select(Country.Code,OBS_VALUE) 
+  filter(gdp_percapita == min(gdp_percapita, na.rm = T)) %>%
+  dplyr::select(Country.Code,gdp_percapita) 
 
 
 #The highest divorce rate in the Europe in 2020
@@ -151,10 +153,12 @@ divorces2020 <- divorces %>%
   filter(TIME_PERIOD == 2020)
 
 HighDiv2020<- divorces2020 %>%
-  filter(OBS_VALUE == max(OBS_VALUE, na.rm = T)) %>%
-  dplyr::select(Country.Code,OBS_VALUE) 
+  filter(divorces_crudo == max(divorces_crudo, na.rm = T)) %>%
+  dplyr::select(Country.Code,divorces_crudo) 
 
 #The lowest divorce rate in the Europe in 2020
 LowDiv2020<- divorces2020 %>%
-  filter(OBS_VALUE == min(OBS_VALUE, na.rm = T)) %>%
-  dplyr::select(Country.Code,OBS_VALUE) 
+  filter(divorces_crudo == min(divorces_crudo, na.rm = T)) %>%
+  dplyr::select(Country.Code,divorces_crudo) 
+
+#correlation between GDP and divorce rate
