@@ -161,6 +161,29 @@ LowDiv2020<- divorces2020 %>%
   filter(divorces_crudo == min(divorces_crudo, na.rm = T)) %>%
   dplyr::select(Country.Code,divorces_crudo) 
 
-#correlation between GDP and divorce rate
+#correlation between GDP and divorce rate in 2020
 comb_data <- left_join(GDP2020, divorces2020, by = "Country.Code")
 cor(comb_data$gdp_percapita, comb_data$divorces_crudo, use = "complete.obs")
+
+
+# GDP per capita & divorce rate in Europe in 2020 - chart
+gg <- ggplot(data = comb_data) +
+  geom_text(mapping = aes(x = gdp_percapita, y = divorces_crudo, label = Country.Code)) +
+  theme_light() +
+  labs(
+    title = "GDP per capita & divorce rate in Europe in 2020",
+    caption = "(based on data from: https://ec.europa.eu/eurostat/databrowser/view/demo_ndivind/default/table?lang=en
+    https://ec.europa.eu/eurostat/databrowser/view/sdg_08_10/default/table?lang=en",
+    x = "GDP",
+    y = "Divorce rate", 
+    col = "Country") +
+  theme(
+    plot.title = element_text(color="royalblue4", size=14, face="bold", hjust = 0.5),
+    plot.subtitle = element_text(color="slateblue", size=8, face="italic"),
+    plot.caption = element_text(color="deeppink", size=7),
+    plot.caption.position = "plot",
+    axis.title.x = element_text(color="darkmagenta", size=10),
+    axis.title.y = element_text(color="darkmagenta", size=10)
+  ) 
+
+gg
