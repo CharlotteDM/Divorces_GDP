@@ -135,3 +135,13 @@ HighGDP2020<- GDP2020 %>%
   filter(OBS_VALUE == max(OBS_VALUE, na.rm = T)) %>%
   dplyr::select(Country.Code,OBS_VALUE) 
 
+#The Lowest GDP in the Europe in 2021 $ in 2020
+
+LowGDP2021<- GDP2021 %>%
+  filter(OBS_VALUE == min(OBS_VALUE, na.rm = T)) %>%
+  dplyr::select(Country.Code,OBS_VALUE) 
+
+LowGDP2020<- GDP2020 %>%
+  filter(OBS_VALUE == min(OBS_VALUE, na.rm = T)) %>%
+  dplyr::select(Country.Code,OBS_VALUE) 
+
