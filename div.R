@@ -25,3 +25,8 @@ divorces <- read.csv("data/divorces_crudo.csv",
 GDP <- read.csv("data/GDP_EURO_per_capita.csv", 
                 stringsAsFactors = F)
 
+#data source: https://gist.github.com/stevewithington/20a69c0b6d2ff846ea5d35e5fc47f26c#file-country-and-continent-codes-list-csv-csv)%20)
+continents <- read.csv("data/continents.csv",
+                       stringsAsFactors = F)
+colnames(continents)[5] <- "Country.Code"
+
