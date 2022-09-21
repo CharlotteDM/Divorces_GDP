@@ -145,3 +145,16 @@ LowGDP2020<- GDP2020 %>%
   filter(OBS_VALUE == min(OBS_VALUE, na.rm = T)) %>%
   dplyr::select(Country.Code,OBS_VALUE) 
 
+
+#The highest divorce rate in the Europe in 2020
+divorces2020 <- divorces %>%
+  filter(TIME_PERIOD == 2020)
+
+HighDiv2020<- divorces2020 %>%
+  filter(OBS_VALUE == max(OBS_VALUE, na.rm = T)) %>%
+  dplyr::select(Country.Code,OBS_VALUE) 
+
+#The lowest divorce rate in the Europe in 2020
+LowDiv2020<- divorces2020 %>%
+  filter(OBS_VALUE == min(OBS_VALUE, na.rm = T)) %>%
+  dplyr::select(Country.Code,OBS_VALUE) 
