@@ -30,3 +30,6 @@ continents <- read.csv("data/continents.csv",
                        stringsAsFactors = F)
 colnames(continents)[5] <- "Country.Code"
 
+#changes names of columns "geo" to "Country.Code"
+colnames(GDP)[6] <- "Country.Code"
+colnames(divorces)[5] <- "Country.Code"
