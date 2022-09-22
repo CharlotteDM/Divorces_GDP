@@ -6,9 +6,10 @@ library("ggrepel")
 library("rworldmap")
 library("rgeos")
 library("RColorBrewer")
-library("knitr")
+library("sf")
+library("rnaturalearth")
+library("rnaturalearthdata")
 library("plotly")
-library("htmlwidgets")
 library("GGally")
 library("stats")
 library("rstudioapi")
@@ -188,6 +189,22 @@ chart_div_2020 <- ggplot(data = divorces2020) + geom_col(aes(x = reorder(Country
     axis.title.y = element_text(color="royalblue4", size=14, face="bold"),
     legend.position = "none") 
 
+#map: Divorces in Europe in 2020
+world <- ne_countries(scale = "medium", returnclass = "sf")
+Europe <- world[which(world$continent == "Europe"),]
+
+
+comb_data_div_map <- left_join(divorces, Europe, by = c("Country.Code" = "brk_a3"))
+
+ggplot(comb_data_div_map) +
+  geom_sf(mapping = aes(geometry = geometry, fill = divorces_crudo)) +
+  scale_fill_gradient(name = "divorces_crudo", low = "#FF0000FF", high = "#FFFF00FF", na.value = "grey50") +
+  coord_sf(xlim = c(-25,45), ylim = c(35,72), expand = FALSE) +
+  labs(title = "Divorces in Europe in 2020",
+       caotion = "(based on data from: https://ec.europa.eu/eurostat/databrowser/view/demo_ndivind/default/table?lang=en
+    https://ec.europa.eu/eurostat/databrowser/view/sdg_08_10/default/table?lang=en )") +
+  theme(plot.title = element_text(color="royalblue4", size=14, face="bold"))
+
 
 
 # GDP per capita & divorce rate in Europe in 2020 - chart
@@ -197,7 +214,7 @@ gg <- ggplot(data = comb_data) +
   labs(
     title = "GDP per capita & number of divorces in Europe in 2020",
     caption = "(based on data from: https://ec.europa.eu/eurostat/databrowser/view/demo_ndivind/default/table?lang=en
-    https://ec.europa.eu/eurostat/databrowser/view/sdg_08_10/default/table?lang=en",
+    https://ec.europa.eu/eurostat/databrowser/view/sdg_08_10/default/table?lang=en)",
     x = "GDP",
     y = "Number of Divorces", 
     col = "Country") +
@@ -211,3 +228,5 @@ gg <- ggplot(data = comb_data) +
   ) 
 
 ggplotly(gg)
+
+
