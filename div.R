@@ -126,6 +126,7 @@ divorces$Country.Code[divorces$Country.Code == "SM"] <- "SMR"
 divorces$Country.Code[divorces$Country.Code == "TR"] <- "TUR"
 divorces$Country.Code[divorces$Country.Code == "UA"] <- "UKR"
 divorces$Country.Code[divorces$Country.Code == "UK"] <- "GBR"
+divorces$Country.Code[divorces$Country.Code == "XK"] <- "KOS"
 
 #The Highest GDP in the Europe in 2021 $ in 2020
 GDP2021 <- GDP %>%
@@ -180,7 +181,7 @@ chart_div_2020 <- ggplot(data = divorces2020) + geom_col(aes(x = reorder(Country
     caption = "(based on data from: https://ec.europa.eu/eurostat/databrowser/view/demo_ndivind/default/table?lang=en
     https://ec.europa.eu/eurostat/databrowser/view/sdg_08_10/default/table?lang=en)",
     x = "European Countries",
-    y = "Divorce rate") +
+    y = "Number of Divorces") +
   theme(
     plot.title = element_text(color="royalblue4", size=14, face="bold", hjust = 0.5),
     axis.title.x = element_text(color="royalblue4", size=14, face="bold"),
@@ -194,11 +195,11 @@ gg <- ggplot(data = comb_data) +
   geom_text(mapping = aes(x = gdp_percapita, y = divorces_crudo, label = Country.Code)) +
   theme_light() +
   labs(
-    title = "GDP per capita & divorce rate in Europe in 2020",
+    title = "GDP per capita & number of divorces in Europe in 2020",
     caption = "(based on data from: https://ec.europa.eu/eurostat/databrowser/view/demo_ndivind/default/table?lang=en
     https://ec.europa.eu/eurostat/databrowser/view/sdg_08_10/default/table?lang=en",
     x = "GDP",
-    y = "Divorce rate", 
+    y = "Number of Divorces", 
     col = "Country") +
   theme(
     plot.title = element_text(color="royalblue4", size=14, face="bold", hjust = 0.5),
