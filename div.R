@@ -178,8 +178,8 @@ chart_div_2020 <- ggplot(data = divorces2020) + geom_col(aes(x = reorder(Country
     y = "Divorce rate") +
   theme(
     plot.title = element_text(color="royalblue4", size=14, face="bold", hjust = 0.5),
-    axis.title.x = element_text(color="steelblue2", size=14, face="bold"),
-    axis.title.y = element_text(color="steelblue2", size=14, face="bold"),
+    axis.title.x = element_text(color="royalblue4", size=14, face="bold"),
+    axis.title.y = element_text(color="royalblue4", size=14, face="bold"),
     legend.position = "none") 
 
 
