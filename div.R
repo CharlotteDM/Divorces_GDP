@@ -165,6 +165,24 @@ LowDiv2020<- divorces2020 %>%
 comb_data <- left_join(GDP2020, divorces2020, by = "Country.Code")
 cor(comb_data$gdp_percapita, comb_data$divorces_crudo, use = "complete.obs")
 
+#chart: European countries & divorce rate in 2020
+chart_div_2020 <- ggplot(data = divorces2020) + geom_col(aes(x = reorder(Country.Code, divorces_crudo), y = divorces_crudo, fill = divorces_crudo)) + 
+  scale_fill_gradient(low="lightblue", high="blue") +
+  coord_flip() +
+  theme_light() +
+  labs(
+    title = "Divorce rate in Europe in 2020",
+    caption = "(based on data from: https://ec.europa.eu/eurostat/databrowser/view/demo_ndivind/default/table?lang=en
+    https://ec.europa.eu/eurostat/databrowser/view/sdg_08_10/default/table?lang=en)",
+    x = "European Countries",
+    y = "Divorce rate") +
+  theme(
+    plot.title = element_text(color="royalblue4", size=14, face="bold", hjust = 0.5),
+    axis.title.x = element_text(color="steelblue2", size=14, face="bold"),
+    axis.title.y = element_text(color="steelblue2", size=14, face="bold"),
+    legend.position = "none") 
+
+
 
 # GDP per capita & divorce rate in Europe in 2020 - chart
 gg <- ggplot(data = comb_data) +
@@ -186,4 +204,4 @@ gg <- ggplot(data = comb_data) +
     axis.title.y = element_text(color="darkmagenta", size=10)
   ) 
 
-gg
+ggplotly(gg)
