@@ -196,14 +196,18 @@ Europe <- world[which(world$continent == "Europe"),]
 
 comb_data_div_map <- left_join(divorces, Europe, by = c("Country.Code" = "brk_a3"))
 
-ggplot(comb_data_div_map) +
+map_divorces_2020 <- ggplot(comb_data_div_map) +
   geom_sf(mapping = aes(geometry = geometry, fill = divorces_crudo)) +
-  scale_fill_gradient(name = "divorces_crudo", low = "#FF0000FF", high = "#FFFF00FF", na.value = "grey50") +
-  coord_sf(xlim = c(-25,45), ylim = c(35,72), expand = FALSE) +
+  scale_fill_gradient(name = "divorces_crudo", low = "#FFFFCC", high = "#FF3300", na.value = "grey50") +
+  coord_sf(xlim = c(-25,43), ylim = c(32,75), expand = FALSE) +
   labs(title = "Divorces in Europe in 2020",
-       caotion = "(based on data from: https://ec.europa.eu/eurostat/databrowser/view/demo_ndivind/default/table?lang=en
+       caption = "(based on data from: https://ec.europa.eu/eurostat/databrowser/view/demo_ndivind/default/table?lang=en,
     https://ec.europa.eu/eurostat/databrowser/view/sdg_08_10/default/table?lang=en )") +
-  theme(plot.title = element_text(color="royalblue4", size=14, face="bold"))
+  theme(plot.title = element_text(color="red4", size=16, face="bold", hjust = 0.5),
+        legend.background = element_rect(fill="wheat", 
+                                         size=0.5, linetype="solid"),
+        plot.caption = element_text(face = "italic", hjust = 0.5)
+        )
 
 
 
