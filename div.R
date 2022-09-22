@@ -473,7 +473,6 @@ gg_GDP_divorces_per100 <- ggplot(data = comb_data2) +
 gg_GNI_divorces_per100 <- ggplot(data = comb_data4) +
   geom_text(mapping = aes(x = gni, y = per100, label = Country.Code)) +
   theme_light() +
-  geom_smooth(method=lm, se=FALSE, col='red', size=2) +
   labs(
     title = "GNI & Number of Divorces per 100 marriages in Europe in 2020",
     caption = "(based on data from: https://ec.europa.eu/eurostat/databrowser/view/demo_ndivind/default/table?lang=en
