@@ -396,6 +396,7 @@ comb_data_div_map <- left_join(divorces, Europe, by = c("Country.Code" = "brk_a3
 comb_data_div_map2 <- left_join(divorcesper100_2020, Europe, by = c("Country.Code" = "brk_a3"))
 
 
+
 map_divorces_2020 <- ggplot(comb_data_div_map) +
   geom_sf(mapping = aes(geometry = geometry, fill = divorces_crudo)) +
   scale_fill_gradient(name = "divorces_crudo", low = "#FFFFCC", high = "#FF3300", na.value = "grey50") +
@@ -469,3 +470,21 @@ gg_GDP_divorces_per100 <- ggplot(data = comb_data2) +
   ) 
 
 
+gg_GNI_divorces_per100 <- ggplot(data = comb_data4) +
+  geom_text(mapping = aes(x = gni, y = per100, label = Country.Code)) +
+  theme_light() +
+  geom_smooth(method=lm, se=FALSE, col='red', size=2) +
+  labs(
+    title = "GNI & Number of Divorces per 100 marriages in Europe in 2020",
+    caption = "(based on data from: https://ec.europa.eu/eurostat/databrowser/view/demo_ndivind/default/table?lang=en
+    https://ec.europa.eu/eurostat/databrowser/view/sdg_08_10/default/table?lang=en)",
+    x = "GNI",
+    y = "Number of Divorces per 100 marriages") +
+  theme(
+    plot.title = element_text(color="royalblue4", size=14, face="bold", hjust = 0.5),
+    plot.subtitle = element_text(color="slateblue", size=8, face="italic"),
+    plot.caption = element_text(color="deeppink", size=7),
+    plot.caption.position = "plot",
+    axis.title.x = element_text(color="darkmagenta", size=10, face = "bold"),
+    axis.title.y = element_text(color="darkmagenta", size=10, face = "bold")
+  ) 
