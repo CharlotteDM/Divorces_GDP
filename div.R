@@ -29,6 +29,9 @@ divorcesper100 <- read.csv("data/divorces_per100.csv",
 GDP <- read.csv("data/GDP_EURO_per_capita.csv", 
                 stringsAsFactors = F)
 
+GDP_PPS <- read.csv("data/GDP_PPS.csv", 
+                  stringsAsFactors = F )
+
 #data source: https://gist.github.com/stevewithington/20a69c0b6d2ff846ea5d35e5fc47f26c#file-country-and-continent-codes-list-csv-csv)%20)
 continents <- read.csv("data/continents.csv",
                        stringsAsFactors = F)
@@ -46,7 +49,8 @@ colnames(divorces)[5] <- "Country.Code"
 colnames(divorces)[7] <- "divorces_crudo"
 colnames(divorcesper100)[5] <- "Country.Code"
 colnames(divorcesper100)[7] <- "per100"
-
+colnames(GDP_PPS)[6] <- "Country.Code"
+colnames(GDP_PPS)[8] <- "gdp_pps"
 
 #changes country code from 2 letters to three letters
 GDP$Country.Code[GDP$Country.Code == "AT"] <- "AUT"
@@ -86,6 +90,45 @@ GDP$Country.Code[GDP$Country.Code == "SI"] <- "SVN"
 GDP$Country.Code[GDP$Country.Code == "SK"] <- "SVK"
 GDP$Country.Code[GDP$Country.Code == "TR"] <- "TUR"
 GDP$Country.Code[GDP$Country.Code == "UK"] <- "GBR"
+
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "AT"] <- "AUT"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "AL"] <- "ALB"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "BE"] <- "BEL"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "BG"] <- "BGR"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "CH"] <- "CHE"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "CY"] <- "CYP"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "CZ"] <- "CZE"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "DE"] <- "DEU"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "DK"] <- "DNK"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "EE"] <- "EST"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "EL"] <- "GRC"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "ES"] <- "ESP"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "FI"] <- "FIN"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "FR"] <- "FRA"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "HR"] <- "HRV"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "HU"] <- "HUN"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "IE"] <- "IRL"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "IS"] <- "ISL"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "IT"] <- "ITA"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "LI"] <- "LIE"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "LT"] <- "LTU"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "LU"] <- "LUX"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "LV"] <- "LVA"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "ME"] <- "MNE"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "MK"] <- "MKD"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "MT"] <- "MLT"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "NL"] <- "NLD"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "NO"] <- "NOR"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "PL"] <- "POL"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "PT"] <- "PRT"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "RO"] <- "ROU"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "RS"] <- "SRB"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "SE"] <- "SWE"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "SI"] <- "SVN"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "SK"] <- "SVK"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "TR"] <- "TUR"
+GDP_PPS$Country.Code[GDP_PPS$Country.Code == "UK"] <- "GBR"
+
 
 divorces$Country.Code[divorces$Country.Code == "AT"] <- "AUT"
 divorces$Country.Code[divorces$Country.Code == "AM"] <- "ARM"
@@ -198,9 +241,16 @@ HighGDP2021<- GDP2021 %>%
 GDP2020 <- GDP %>%
   filter(TIME_PERIOD == 2020)
 
+GDP_PPS2020 <- GDP_PPS %>%
+  filter(TIME_PERIOD == 2020)
+
 HighGDP2020<- GDP2020 %>%
   filter(gdp_percapita == max(gdp_percapita, na.rm = T)) %>%
   dplyr::select(Country.Code, gdp_percapita) 
+
+HighGDP_PPS2020<- GDP_PPS2020 %>%
+  filter(gdp_pps == max(gdp_pps, na.rm = T)) %>%
+  dplyr::select(Country.Code, gdp_pps) 
 
 #The Lowest GDP in the Europe in 2021 $ in 2020
 
@@ -237,6 +287,10 @@ cor(comb_data$gdp_percapita, comb_data$divorces_crudo, use = "complete.obs")
 comb_data2 <- left_join(GDP2020, divorcesper100_2020, by = "Country.Code")
 cor(comb_data2$gdp_percapita, comb_data2$per100, use = "complete.obs")
 
+#correlation between GDP_PPS  and divorce rate per 100 marriages in 2020
+comb_data3 <- left_join(GDP_PPS2020, divorcesper100_2020, by = "Country.Code")
+cor(comb_data3$gdp_pps, comb_data3$per100, use = "complete.obs")
+
 
 #chart: European countries & divorce rate in 2020
 chart_div_2020 <- ggplot(data = divorces2020) + geom_col(aes(x = reorder(Country.Code, divorces_crudo), y = divorces_crudo, fill = divorces_crudo)) + 
@@ -270,6 +324,8 @@ chart_div_2020_2 <- ggplot(data = divorcesper100_2020) + geom_col(aes(x = reorde
     axis.title.x = element_text(color="royalblue4", size=14, face="bold"),
     axis.title.y = element_text(color="royalblue4", size=14, face="bold"),
     legend.position = "none") 
+
+
 
 
 #map: Divorces in Europe in 2020
