@@ -30,6 +30,11 @@ continents <- read.csv("data/continents.csv",
                        stringsAsFactors = F)
 colnames(continents)[5] <- "Country.Code"
 
+#removes some unnecessary rows in data frames
+GDP <- GDP[-c(198:219, 286:327), ]
+divorces <- divorces[-c(101:110, 121:132, 143:145, 163:180), ]
+
+
 #changes names of columns 
 colnames(GDP)[6] <- "Country.Code"
 colnames(GDP)[8] <- "gdp_percapita"
